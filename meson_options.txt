@@ -1,0 +1,349 @@
+# SPDX-License-Identifier: Apache-2.0
+
+option('tests', type: 'feature', description: 'Build tests')
+
+option('jffs-workaround', type: 'feature',
+        description : 'Turn on jffs workaround for core file'
+      )
+
+option('DUMP_BUSNAME', type : 'string',
+        value : 'xyz.openbmc_project.Dump.Manager',
+        description : 'The D-Bus busname to own'
+      )
+
+option('DUMP_OBJPATH', type : 'string',
+        value : '/xyz/openbmc_project/dump',
+        description : 'The dump manager D-Bus root'
+      )
+
+option('BMC_DUMP_OBJPATH', type : 'string',
+        value : '/xyz/openbmc_project/dump/bmc',
+        description : 'The BMC dump manager D-Bus object path'
+      )
+
+option('CORE_FILE_DIR', type : 'string',
+        value : '/var/lib/systemd/coredump',
+        description : 'Directory where core dumps are placed'
+      )
+
+option('OBJ_INTERNAL', type : 'string',
+        value : '/xyz/openbmc_project/dump/internal/manager',
+        description : 'Internal dump manager D-Bus object path'
+      )
+
+option('BMC_DUMP_OBJ_ENTRY', type : 'string',
+        value : '/xyz/openbmc_project/dump/bmc/entry',
+        description : 'The BMC dump entry D-Bus object path'
+      )
+
+option('BMC_DUMP_PATH', type : 'string',
+        value : '/var/lib/phosphor-debug-collector/dumps/',
+        description : 'Directory where bmc dumps are placed'
+      )
+
+option('BMC_DUMP_MAX_SIZE', type : 'integer',
+        value : 200,
+        description : 'Maximum size of one bmc dump in kilo bytes'
+      )
+
+option('BMC_DUMP_MIN_SPACE_REQD', type : 'integer',
+        value : 20,
+        description : 'Minimum space required for one bmc dump in kilo bytes'
+      )
+
+option('BMC_DUMP_TOTAL_SIZE', type : 'integer',
+        value : 1024,
+        description : 'Total size of the dump in kilo bytes'
+      )
+
+option('ELOG_ID_PERSIST_PATH', type : 'string',
+        value : '/var/lib/phosphor-debug-collector/elogid',
+        description : 'Path of file for storing elog id\'s, which have associated dumps'
+      )
+
+option('CLASS_VERSION', type : 'integer',
+        value : 1,
+        description : 'Class version to register with Cereal'
+      )
+
+option('ERROR_MAP_YAML', type : 'string',
+        value : 'example_errors_watch.yaml',
+        description : 'YAML filepath containing error object paths'
+      )
+
+option('host-transport', type : 'string',
+        value : 'default',
+        description : 'To specify the host dump transport protocol')
+
+option('openpower-dumps-extension', type: 'feature',
+        value : 'disabled',
+        description : 'Enable Open Power specific dumps'
+      )
+
+option('dump_rotate_config', type: 'feature',
+        value : 'disabled',
+        description : 'Enable rotate config for bmc dump'
+      )
+
+option('log_pel_on_dump_delete', type: 'feature',
+        value : 'disabled',
+        description : 'Log PEL on deleting the dump'
+      )
+option('fault_data_dump', type: 'feature',
+        value : 'disabled',
+        description : 'Dump to store system fault data'
+      )
+
+# Fault log options
+
+option('FAULTLOG_DUMP_PATH', type : 'string',
+        value : '/var/lib/phosphor-debug-collector/faultlogs/',
+        description : 'Directory where fault logs are placed'
+      )
+
+option('FAULTLOG_DUMP_OBJPATH', type : 'string',
+        value : '/xyz/openbmc_project/dump/faultlog',
+        description : 'The fault log dump manager D-Bus object path'
+      )
+
+option('FAULTLOG_DUMP_OBJ_ENTRY', type : 'string',
+        value : '/xyz/openbmc_project/dump/faultlog/entry',
+        description : 'The fault log dump entry D-Bus object path'
+      )
+
+# Configurations for openpower-dump extension
+
+# System dump options
+
+option('SYSTEM_DUMP_OBJPATH', type : 'string',
+        value : '/xyz/openbmc_project/dump/system',
+        description : 'The system dump manager D-Bus object path'
+      )
+
+option('SYSTEM_DUMP_SERIAL_PATH', type : 'string',
+        value : '/var/lib/phosphor-debug-collector/preserve/system',
+        description : 'The system dump D-Bus object persist path'
+      )
+
+option('SYSTEM_DUMP_OBJ_ENTRY', type : 'string',
+        value : '/xyz/openbmc_project/dump/system/entry',
+        description : 'The system dump entry D-Bus object path'
+      )
+
+option('SYSTEMD_PSTORE_PATH', type : 'string',
+        value : '/var/lib/systemd/pstore/',
+        description : 'Path to the systemd pstore directory'
+      )
+
+# Resource dump options
+
+option('RESOURCE_DUMP_OBJPATH', type : 'string',
+        value : '/xyz/openbmc_project/dump/resource',
+        description : 'The resource dump manager D-Bus object path'
+      )
+
+option('RESOURCE_DUMP_OBJ_ENTRY', type : 'string',
+        value : '/xyz/openbmc_project/dump/resource/entry',
+        description : 'The resource dump entry D-Bus object path'
+      )
+
+option('RESOURCE_DUMP_SERIAL_PATH', type : 'string',
+        value : '/var/lib/phosphor-debug-collector/preserve/resource',
+        description : 'The resource dump D-Bus object persist path'
+      )
+
+# Hostboot dump options
+
+option('HOSTBOOT_DUMP_OBJPATH', type : 'string',
+        value : '/xyz/openbmc_project/dump/hostboot',
+        description : 'The hostboot dump manager D-Bus object path'
+      )
+option('HOSTBOOT_DUMP_OBJ_ENTRY', type : 'string',
+        value : '/xyz/openbmc_project/dump/hostboot/entry',
+        description : 'The Hostboot dump entry D-Bus object path'
+      )
+# This value needs to be set from recipe as a common value with
+# packaging application.
+option('HOSTBOOT_DUMP_TMP_FILE_DIR', type : 'string',
+        value : '/tmp/openpower-dumps/hostboot',
+        description : 'Directory where hostboot dump pieces are stored for packaging'
+      )
+option('HOSTBOOT_DUMP_PATH', type : 'string',
+        value : '/var/lib/phosphor-debug-collector/hostbootdump/',
+        description : 'Directory where Hostboot dumps are placed'
+      )
+option('HOSTBOOT_DUMP_MAX_SIZE', type : 'integer',
+        value : 102400,
+        description : 'Maximum size of one Hostboot dump in kilo bytes'
+      )
+option('HOSTBOOT_DUMP_MIN_SPACE_REQD', type : 'integer',
+        value : 81920,
+        description : 'Minimum space required for one Hostboot dump in kilo bytes'
+      )
+option('HOSTBOOT_DUMP_TOTAL_SIZE', type : 'integer',
+        value : 409600,
+        description : 'Total size of the dump in kilo bytes'
+      )
+option('HOSTBOOT_DUMP_START_ID', type : 'integer',
+        value : 20000000,
+        description : 'Starting id of Hostboot Dump'
+      )
+
+# Hardware dump options
+
+option('HARDWARE_DUMP_OBJPATH', type : 'string',
+        value : '/xyz/openbmc_project/dump/hardware',
+        description : 'The hardware dump manager D-Bus object path'
+      )
+
+option('HARDWARE_DUMP_OBJ_ENTRY', type : 'string',
+        value : '/xyz/openbmc_project/dump/hardware/entry',
+        description : 'The hardware dump entry D-Bus object path'
+      )
+
+option('HARDWARE_DUMP_TMP_FILE_DIR', type : 'string',
+        value : '/tmp/openpower-dumps/hardware',
+        description : 'Directory where hardware dump pieces are stored for packaging'
+      )
+
+option('HARDWARE_DUMP_PATH', type : 'string',
+        value : '/var/lib/phosphor-debug-collector/hardwaredump/',
+        description : 'Directory where hardware dumps are placed'
+      )
+
+option('HARDWARE_DUMP_MAX_SIZE', type : 'integer',
+        value : 102400,
+        description : 'Maximum size of one hardware dump in kilo bytes'
+      )
+
+option('HARDWARE_DUMP_MIN_SPACE_REQD', type : 'integer',
+        value : 81920,
+        description : 'Minimum space required for one hardware dump in kilo bytes'
+      )
+
+option('HARDWARE_DUMP_TOTAL_SIZE', type : 'integer',
+        value : 409600,
+        description : 'Total size of the hardware dump in kilo bytes'
+      )
+option('HARDWARE_DUMP_START_ID', type : 'integer',
+        value : 0,
+        description : 'Starting id of Hardware Dump'
+      )
+
+# SBE dump options
+
+option('SBE_DUMP_OBJPATH', type : 'string',
+        value : '/xyz/openbmc_project/dump/sbe',
+        description : 'The SBE dump manager D-Bus object path'
+      )
+
+option('SBE_DUMP_OBJ_ENTRY', type : 'string',
+        value : '/xyz/openbmc_project/dump/sbe/entry',
+        description : 'The SBE dump entry D-Bus object path'
+      )
+
+option('SBE_DUMP_TMP_FILE_DIR', type : 'string',
+        value : '/tmp/openpower-dumps/sbe',
+        description : 'Directory where SBE dump pieces are stored for packaging'
+      )
+
+option('SBE_DUMP_PATH', type : 'string',
+        value : '/var/lib/phosphor-debug-collector/sbedump/',
+        description : 'Directory where SBE dumps are placed'
+      )
+
+option('SBE_DUMP_MAX_SIZE', type : 'integer',
+        value : 102400,
+        description : 'Maximum size of one SBE dump in kilo bytes'
+      )
+
+option('SBE_DUMP_MIN_SPACE_REQD', type : 'integer',
+        value : 81920,
+        description : 'Minimum space required for one SBE dump in kilo bytes'
+      )
+
+option('SBE_DUMP_TOTAL_SIZE', type : 'integer',
+        value : 409600,
+        description : 'Total size of the SBE dump in kilo bytes'
+      )
+option('SBE_DUMP_START_ID', type : 'integer',
+        value : 30000000,
+        description : 'Starting id of SBE Dump'
+      )
+
+option('BMC_DUMP_FILENAME_REGEX', type: 'string',
+        value: 'obmcdump_([0-9]+)_([0-9]+).([a-zA-Z0-9]+)',
+        description : 'BMC dump file format'
+      )
+
+option('SYS_DUMP_FILENAME_REGEX', type: 'string',
+        value: '(SYSDUMP).([a-zA-Z0-9]+).([0-9]+).([0-9]+)',
+        description : 'System dump file format'
+      )
+
+option('FILENAME_DUMP_ID_POS', type : 'integer',
+        value : 1,
+        description : 'Position of dump id in dump filename'
+      )
+option('FILENAME_EPOCHTIME_POS', type : 'integer',
+        value : 2,
+        description : 'Position of timestamp in dump filename'
+      )
+option('HARDWARE_DUMP_START_ID', type : 'integer',
+        value : 0,
+        description : 'Starting id of Hardware Dump'
+      )
+
+# SBE dump options
+
+option('SBE_DUMP_OBJPATH', type : 'string',
+        value : '/xyz/openbmc_project/dump/sbe',
+        description : 'The SBE dump manager D-Bus object path'
+      )
+
+option('SBE_DUMP_OBJ_ENTRY', type : 'string',
+        value : '/xyz/openbmc_project/dump/sbe/entry',
+        description : 'The SBE dump entry D-Bus object path'
+      )
+
+option('SBE_DUMP_TMP_FILE_DIR', type : 'string',
+        value : '/tmp/openpower-dumps/sbe',
+        description : 'Directory where SBE dump pieces are stored for packaging'
+      )
+
+option('SBE_DUMP_PATH', type : 'string',
+        value : '/var/lib/phosphor-debug-collector/sbedump/',
+        description : 'Directory where SBE dumps are placed'
+      )
+
+option('SBE_DUMP_MAX_SIZE', type : 'integer',
+        value : 102400,
+        description : 'Maximum size of one SBE dump in kilo bytes'
+      )
+
+option('SBE_DUMP_MIN_SPACE_REQD', type : 'integer',
+        value : 81920,
+        description : 'Minimum space required for one SBE dump in kilo bytes'
+      )
+
+option('SBE_DUMP_TOTAL_SIZE', type : 'integer',
+        value : 409600,
+        description : 'Total size of the SBE dump in kilo bytes'
+      )
+option('SBE_DUMP_START_ID', type : 'integer',
+        value : 30000000,
+        description : 'Starting id of SBE Dump'
+      )
+
+option('FILENAME_DUMP_ID_POS', type : 'integer',
+        value : 1,
+        description : 'Position of dump id in dump filename'
+      )
+option('FILENAME_EPOCHTIME_POS', type : 'integer',
+        value : 2,
+        description : 'Position of timestamp in dump filename'
+      )
+option('TIMESTAMP_FORMAT', type : 'integer',
+        value : 1,
+        description : 'Timestamp format in filename: 0-epoch 1-human readable'
+      )
